@@ -11,10 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160204135855) do
+ActiveRecord::Schema.define(version: 20160204164412) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "approves", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "steward_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "approves", ["steward_id"], name: "index_approves_on_steward_id", using: :btree
+  add_index "approves", ["user_id"], name: "index_approves_on_user_id", using: :btree
 
   create_table "groups", force: :cascade do |t|
     t.string   "name"
@@ -37,14 +47,13 @@ ActiveRecord::Schema.define(version: 20160204135855) do
   end
 
   create_table "stewards", force: :cascade do |t|
-    t.integer  "user_id"
     t.integer  "group_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "student_id"
   end
 
   add_index "stewards", ["group_id"], name: "index_stewards_on_group_id", using: :btree
-  add_index "stewards", ["user_id"], name: "index_stewards_on_user_id", using: :btree
 
   create_table "students", force: :cascade do |t|
     t.string   "first_name"
@@ -82,8 +91,10 @@ ActiveRecord::Schema.define(version: 20160204135855) do
   add_index "users_roles", ["role_id"], name: "index_users_roles_on_role_id", using: :btree
   add_index "users_roles", ["user_id"], name: "index_users_roles_on_user_id", using: :btree
 
+  add_foreign_key "approves", "stewards"
+  add_foreign_key "approves", "users"
   add_foreign_key "stewards", "groups"
-  add_foreign_key "stewards", "users"
+  add_foreign_key "stewards", "students"
   add_foreign_key "users_roles", "roles"
   add_foreign_key "users_roles", "users"
 end

@@ -11,7 +11,7 @@ class Api::V1::UserController < Api::V1::BaseController
 
         notify_steward();
 
-        render(json: {:status => "ok", :group => @group})
+        render(json: {:status => "ok")
       else
         render(json: {:error => "Студент с указанным номером зачетки не существует"})
       end
@@ -44,7 +44,9 @@ class Api::V1::UserController < Api::V1::BaseController
   private
 
   def notify_steward
-  	@group = @user.student.group
-
+  	group = @user.student.group
+  	@stewards = Steward.find_by group_id: group.id
+  	@user.stewards
+  	@stewards.users << @user
   end
 end
