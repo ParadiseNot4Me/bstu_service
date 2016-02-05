@@ -1,4 +1,4 @@
 class UserSerializer < ActiveModel::Serializer
-  attributes :login
+  attributes :id, :login
   belongs_to :student
 end

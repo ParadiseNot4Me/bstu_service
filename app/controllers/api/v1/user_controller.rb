@@ -10,7 +10,7 @@ class Api::V1::UserController < Api::V1::BaseController
         notify_steward()
         @user.save
 
-        render(json: {:status => "ok"})
+        render(json: {:status => "Пользователь успешно создан"})
       else
         render(json: {:error => "Студент с указанным номером зачетки не существует"})
       end
