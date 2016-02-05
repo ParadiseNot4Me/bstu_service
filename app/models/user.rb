@@ -8,8 +8,9 @@ class User < ActiveRecord::Base
 
   before_create :hash_password
 
-    def hash_password
-      self.password = Digest::MD5.hexdigest(self.password)
-    end
+  def hash_password
+    self.password = Digest::MD5.hexdigest(self.password)
+  end
+
 
 end

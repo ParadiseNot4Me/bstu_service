@@ -3,7 +3,7 @@ class Api::V1::ApproveController < Api::V1::BaseAuthorizableController
   before_filter :authenticate_steward!
 
   def index
-    render(json: @steward.users)
+    render json: @steward.users
   end
 
 

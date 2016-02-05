@@ -2,14 +2,16 @@ API
 ===
 туру-туту
 
-РЕГИСТРАЦИЯ
+##РЕГИСТРАЦИЯ
 ---
 Студент идентифицируется по номеру зачетки. Если указанный номер существует в бд, то пользователь успешно создастя
-> 
-**Параметры:** 
-> - login
-> - password
-> - record_book_number - номер зачетки
+
+
+**Параметры:**
+ - login
+ - password
+ - record_book_number - номер зачетки
+
 ### POST /api/v1/registration
 ```
 {
@@ -22,18 +24,18 @@ API
 ### Status 200 OK
 ```
 {
-  "login":"isamorodov",
-  "password":"0123456789"
+  "status":"Пользователь успешно создан"
 }
 ```
 
-АВТОРИЗАЦИЯ
+##АВТОРИЗАЦИЯ
 ---
 Метод для получения api токена. Важный параметр для всех последующих запросов
 
-**Параметры:** 
-> - login
-> - password
+**Параметры:**
+
+ - login
+ - password
 
 ### POST /api/v1/authorization
 ```
@@ -48,4 +50,43 @@ API
 {
   "access_token": "pIjIY7jUee0/+JgNUgaJWDEV0Ky8EgqVJRVYxsRDCMCO7TSPXqpysW/9Sgwt5Jg5txlKMnXfKAIiDfwMALJqAQ=="
 }
+```
+
+
+##ПОДТВЕРЖДЕНИЕ РЕГИСТРАЦИИ
+---
+После создания пользователя, он не может получать доступ к апи. Для получения доступа, староста должен подтвердить реистрацию пользователя
+
+#Методы подтверждения доступные только старостам
+
+###ЗАПРОС НЕПОДТВЕРЖДЕННЫХ ПОЛЬЗОВАТЕЛЕЙ
+  староста запрашивает пользователей только для своей группы
+###
+
+**Параметры:**
+
+ - token
+
+### GET /api/v1/approve/users
+
+### Status 200 OK
+```
+[
+   {  
+      "login":"isamorodov",
+      "student":{  
+         "first_name":"Ilia",
+         "last_name":"Samorodov",
+         "middle_name":"kek"
+      }
+   },
+   {  
+      "login":"test",
+      "student":{  
+         "first_name":"test",
+         "last_name":"test",
+         "middle_name":"test"
+      }
+   }
+]
 ```
