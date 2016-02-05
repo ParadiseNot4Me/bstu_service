@@ -6,12 +6,11 @@ class Api::V1::UserController < Api::V1::BaseController
 
       student = Student.find_by record_book_number: params[:record_book_number]
       if student
-        @user.student = student;
-        @user.save;
+        @user.student = student
+        notify_steward()
+        @user.save
 
-        notify_steward();
-
-        render(json: {:status => "ok")
+        render(json: {:status => "ok"})
       else
         render(json: {:error => "Студент с указанным номером зачетки не существует"})
       end
