@@ -1,4 +1,4 @@
-class Api::V1::ApproveController < Api::V1::BaseAuthorizableController
+class Api::V1::ApproveController < Api::V1::Base::BaseAuthorizableController
 
   before_filter :authenticate_steward!
 

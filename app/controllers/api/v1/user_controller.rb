@@ -1,4 +1,4 @@
-class Api::V1::UserController < Api::V1::BaseController
+class Api::V1::UserController < Api::V1::Base::BaseController
 
   def registration
     if !(User.find_by login: post_params[:login])

@@ -1,4 +1,4 @@
-class Api::V1::StudentController < Api::V1::BaseAdminController
+class Api::V1::StudentController < Api::V1::Base::BaseAdminController
 
   before_action :set_student, only: [:show ]
 
