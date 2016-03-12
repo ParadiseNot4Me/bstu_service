@@ -44,8 +44,10 @@ class Api::V1::UserController < Api::V1::Base::BaseController
 
   def notify_steward
   	group = @user.student.group
-  	@stewards = Steward.find_by group_id: group.id
-  	@user.stewards
-  	@stewards.users << @user
+    if @stewards
+  	 @stewards = Steward.find_by group_id: group.id
+  	 @user.stewards
+  	 @stewards.users << @user
+    end
   end
 end

@@ -1,4 +1,9 @@
 BstuService::Application.routes.draw do
+  ActiveAdmin.routes(self)
+
+  get '/authentication' => 'authentication#index'
+  post '/authentication_path' => 'authentication#authentication'
+
   namespace :api do
     namespace :v1 do
 
@@ -17,8 +22,6 @@ BstuService::Application.routes.draw do
 
       #ГРУППА
       get '/groups' => 'group#index'
-
-
 
     end
   end
