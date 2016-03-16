@@ -7,8 +7,10 @@ class AuthenticationController < ApplicationController
   def authentication
     user = User.find_by login: post_params[:login],
       password: Digest::MD5.hexdigest(post_params[:password])
-    if user && user.roles.include? Role.find_by(name: "admin")
-      session[:user_id] = user.id
+    if user 
+    
+        session[:user_id] = user.id
+      
     end
 
 
