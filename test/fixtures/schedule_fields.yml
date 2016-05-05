@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  subject: 
+  lesson_time_id: 
+  lesson_day_id: 
+  lesson_week_type_id: 
+
+two:
+  subject: 
+  lesson_time_id: 
+  lesson_day_id: 
+  lesson_week_type_id: 

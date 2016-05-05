@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   has_many :hashs, dependent: :destroy, class_name: "Hashs"
   belongs_to :student
+  belongs_to :teacher
 
   has_many :users_roles, class_name: "UsersRoles"
   has_many :roles, :through => :users_roles

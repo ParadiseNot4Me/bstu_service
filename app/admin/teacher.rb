@@ -1,4 +1,4 @@
-ActiveAdmin.register User do
+ActiveAdmin.register Teacher do
 
 # See permitted parameters documentation:
 # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
@@ -13,11 +13,11 @@ ActiveAdmin.register User do
 #   permitted
 # end
 
-
-permit_params do
-    permitted = [:permitted, :attributes, :login, :password, :student_id, :teacher_id]
+ permit_params do
+    permitted = [:permitted, :attributes, :first_name, :last_name, :middle_name, :user_id]
     permitted << :other if params[:action] == 'create'
     permitted
   end
+
 
 end
