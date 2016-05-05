@@ -13,5 +13,12 @@ ActiveAdmin.register ScheduleField do
 #   permitted
 # end
 
+permit_params do
+    permitted = [:permitted, :attributes, :subject_id, :lesson_time_id, :lesson_week_type_id, :lesson_day_id]
+    permitted << :other if params[:action] == 'create'
+    permitted
+  end
+
+
 
 end
