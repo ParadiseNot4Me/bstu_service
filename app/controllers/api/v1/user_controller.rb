@@ -32,6 +32,8 @@ class Api::V1::UserController < Api::V1::Base::BaseController
 
       render(json:  { :access_token => token })
     end
+
+    rescue_access_denied("Пользователя с таким логином и паролем не существует")
   end
 
 
