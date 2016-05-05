@@ -88,6 +88,7 @@ ActiveRecord::Schema.define(version: 20160312121112) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "student_id"
+    t.integer  "group_id"
   end
 
   add_index "users", ["hashs_id"], name: "index_users_on_hashs_id", using: :btree
