@@ -18,7 +18,6 @@ class Api::V1::UserController < Api::V1::Base::BaseController
       rescue_access_denied("Пользователь с таким логином уже существует")
     end
 
-
   end
 
 
@@ -32,9 +31,10 @@ class Api::V1::UserController < Api::V1::Base::BaseController
       hash.save;
 
       render(json:  { :access_token => token })
-    end
+    else
 
-    rescue_access_denied("Пользователя с таким логином и паролем не существует")
+      rescue_access_denied("Пользователя с таким логином и паролем не существует")
+    end
   end
 
 
@@ -46,11 +46,11 @@ class Api::V1::UserController < Api::V1::Base::BaseController
   private
 
   def notify_steward
-  	group = @user.student.group
+    group = @user.student.group
     if @stewards
-  	 @stewards = Steward.find_by group_id: group.id
-  	 @user.stewards
-  	 @stewards.users << @user
+      @stewards = Steward.find_by group_id: group.id
+      @user.stewards
+      @stewards.users << @user
     end
   end
 end
