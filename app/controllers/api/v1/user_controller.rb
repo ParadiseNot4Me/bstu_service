@@ -10,12 +10,12 @@ class Api::V1::UserController < Api::V1::Base::BaseController
         notify_steward()
         @user.save
 
-        render(json: {:status => "Пользователь успешно создан"})
+        rescue_access_denied("Пользователь успешно создан")
       else
         render(json: {:error => "Студент с указанным номером зачетки не существует"})
       end
     else
-      render(json: {:error => "Пользователь с таким логином уже существует"})
+      rescue_access_denied("Пользователь с таким логином уже существует")
     end
 
   end

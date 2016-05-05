@@ -9,8 +9,8 @@ module ExceptionHandlable extend ActiveSupport::Concern
 
   # 400 Bad Request
   def rescue_bad_request(message)
-    errors = { message: message }
-    render json: { errors: errors }, status: :bad_request
+    error = { error:  message }
+    render json: error, status: :bad_request
   end
 
   # 404 Not Found
@@ -21,25 +21,20 @@ module ExceptionHandlable extend ActiveSupport::Concern
 
   # 422 Unprocessable Entity
   def rescue_unprocessable_entity(errors = {})
-    errors = {
-      errors: { message: errors.record.errors.full_messages }
+    error = {
+      error: errors.record.errors.full_messages 
     } if errors.record
-
-    render json: errors, status: :unprocessable_entity
+    render json: error, status: :unprocessable_entity
   end
 
   # 401 Forbidden
   def rescue_unauthorized(message)
-    errors = {
-      errors: { message: message }
-    }
-    render json: errors, status: :unauthorized
+    error = { error:  message }
+    render json: error, status: :unauthorized
   end
   # 403 Forbidden
   def rescue_access_denied(message)
-    errors = {
-      errors: { message: message }
-    }
-    render json: errors, status: :forbidden
+    error = { error:  message }
+    render json: error, status: :forbidden
   end
 end

@@ -15,3 +15,9 @@ role.save
 role = Role.new
 role.name = "admin"
 role.save
+
+user = User.new 
+user.login = "admin"
+user.password = "admin"
+user.roles << role
+user.save
