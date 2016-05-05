@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  has_many :hashs, dependent: :destroy
+  has_many :hashs, dependent: :destroy, class_name: "Hashs"
   belongs_to :student
 
   has_many :users_roles, class_name: "UsersRoles"
