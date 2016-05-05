@@ -12,11 +12,12 @@ class Api::V1::UserController < Api::V1::Base::BaseController
 
         render( json: {:status => "Пользователь успешно создан" })
       else
-        render(json: {:error => "Студент с указанным номером зачетки не существует"})
+        rescue_access_denied("Студент с указанным номером зачетки не существует")
       end
     else
       rescue_access_denied("Пользователь с таким логином уже существует")
     end
+
 
   end
 
