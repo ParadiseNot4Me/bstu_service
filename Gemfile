@@ -27,6 +27,9 @@ gem "active_model_serializers", github: "rails-api/active_model_serializers"
 
 gem 'activeadmin', github: 'activeadmin'
 
+gem 'rails_12factor', group: :production
+
+
 # Plus integrations with:
 gem 'cancancan'
 gem 'draper'
