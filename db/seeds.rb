@@ -6,8 +6,11 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> development
 role = Role.new
 role.name = "user"
 role.save
@@ -16,8 +19,17 @@ role = Role.new
 role.name = "admin"
 role.save
 
+<<<<<<< HEAD
 user = User.new 
 user.login = "admin"
 user.password = "admin"
 user.roles << role
 user.save
+=======
+
+
+user = User.new
+user.login = "admin"
+user.password = "admin"
+user.roles << role
+>>>>>>> development
