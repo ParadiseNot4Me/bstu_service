@@ -1,4 +1,4 @@
-class CreateScheduleFieldGroups < ActiveRecord::Migration
+class CreateSheduleFieldGroups < ActiveRecord::Migration
   def change
     create_table :schedule_field_groups do |t|
       t.references :group, index: true, foreign_key: true
