@@ -9,7 +9,7 @@ class Api::V1::ScheduleController < Api::V1::Base::BaseAuthorizableController
     group = @user.student.group
     time = params[:date].to_datetime
 
-    fields = group.schedule_fields.select { |x| x.lesson_day.id == time.wday + 1 }
+    fields = group.schedule_fields.select { |x| x.lesson_day.n == time.wday}
 
     render json: fields 
   end
