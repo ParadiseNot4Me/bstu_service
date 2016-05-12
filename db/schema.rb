@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160505124815) do
+ActiveRecord::Schema.define(version: 20160512161534) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -80,6 +80,16 @@ ActiveRecord::Schema.define(version: 20160505124815) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "schedule_field_groups", force: :cascade do |t|
+    t.integer  "group_id"
+    t.integer  "schedule_field_id"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+  end
+
+  add_index "schedule_field_groups", ["group_id"], name: "index_schedule_field_groups_on_group_id", using: :btree
+  add_index "schedule_field_groups", ["schedule_field_id"], name: "index_schedule_field_groups_on_schedule_field_id", using: :btree
 
   create_table "schedule_fields", force: :cascade do |t|
     t.integer  "subject_id"
@@ -170,6 +180,8 @@ ActiveRecord::Schema.define(version: 20160505124815) do
 
   add_foreign_key "approves", "stewards"
   add_foreign_key "approves", "users"
+  add_foreign_key "schedule_field_groups", "groups"
+  add_foreign_key "schedule_field_groups", "schedule_fields"
   add_foreign_key "schedule_fields", "lesson_days"
   add_foreign_key "schedule_fields", "lesson_times"
   add_foreign_key "schedule_fields", "lesson_week_types"

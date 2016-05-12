@@ -1,24 +1,39 @@
 ActiveAdmin.register ScheduleField do
 
-# See permitted parameters documentation:
-# https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
-#
-# permit_params :list, :of, :attributes, :on, :model
-#
-# or
-#
-# permit_params do
-#   permitted = [:permitted, :attributes]
-#   permitted << :other if params[:action] == 'create' && current_user.admin?
-#   permitted
-# end
-
-permit_params do
-    permitted = [:permitted, :attributes, :subject_id, :lesson_time_id, :lesson_week_type_id, :lesson_day_id]
-    permitted << :other if params[:action] == 'create'
-    permitted
+  form do |f|
+    f.semantic_errors *f.object.errors.keys
+    f.inputs "ScheduleField" do
+      f.input :subject
+      f.input :lesson_time
+      f.input :lesson_day
+      f.input :lesson_week_type
+      f.input :groups, :as => :check_boxes
+    end
+    f.actions
   end
 
+  permit_params :permitted, :attributes, :subject_id, :lesson_day_id, :lesson_time_id,
+    :lesson_week_type_id, group_ids:[]
 
+  show do |scheduleField|
+
+    attributes_table do
+      row :subject
+      row :lesson_time
+      row :lesson_day
+      row :lesson_week_type
+      str = ""
+      scheduleField.groups.each do |group|
+        str += group.name + ", "
+      end
+
+
+      row :groups do str
+      end
+
+
+    end
+
+  end
 
 end

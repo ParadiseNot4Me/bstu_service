@@ -23,6 +23,10 @@ BstuService::Application.routes.draw do
       #ГРУППА
       get '/groups' => 'group#index'
 
+      #РАСПИСАНИЕ
+      get '/schedule' => 'schedule#schedule'
+      get '/schedule_of_day' => 'schedule#schedule_of_day'
+
     end
   end
 
