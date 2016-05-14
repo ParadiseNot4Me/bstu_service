@@ -20,7 +20,6 @@ class Api::V1::UserController < Api::V1::Base::BaseController
 
   end
 
-
   def authorization
     user = User.find_by login: post_params[:login], password: Digest::MD5.hexdigest(post_params[:password])
     if user
@@ -35,6 +34,23 @@ class Api::V1::UserController < Api::V1::Base::BaseController
 
       rescue_access_denied("Пользователя с таким логином и паролем не существует")
     end
+  end
+
+  def show
+    if !params['token']
+      rescue_bad_request("token")
+    else
+      hash = Hashs.find_by token: params['token']
+      if hash
+        @user = hash.user
+      else
+        rescue_unauthorized("Ошибка токена")
+      end
+    end
+    
+    render json: @user
+
+
   end
 
 

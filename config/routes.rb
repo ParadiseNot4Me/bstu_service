@@ -10,6 +10,7 @@ BstuService::Application.routes.draw do
 
       post '/registration' => 'user#registration'
       post '/authorization' => 'user#authorization'
+      get '/user' => 'user#show'
 
       get '/approve/users' => 'approve#index'
       post '/approve' => 'approve#approve'
