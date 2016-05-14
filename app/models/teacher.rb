@@ -1,5 +1,6 @@
 class Teacher < ActiveRecord::Base
   belongs_to :user
+  has_many :subjects
 
   def name
     return last_name + " " + first_name + " " + middle_name;

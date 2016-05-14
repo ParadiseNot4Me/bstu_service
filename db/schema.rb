@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160512161534) do
+ActiveRecord::Schema.define(version: 20160514112206) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -69,6 +69,12 @@ ActiveRecord::Schema.define(version: 20160512161534) do
     t.integer  "n"
   end
 
+  create_table "lesson_types", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "lesson_week_types", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
@@ -98,10 +104,12 @@ ActiveRecord::Schema.define(version: 20160512161534) do
     t.integer  "lesson_week_type_id"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
+    t.integer  "lesson_type_id"
   end
 
   add_index "schedule_fields", ["lesson_day_id"], name: "index_schedule_fields_on_lesson_day_id", using: :btree
   add_index "schedule_fields", ["lesson_time_id"], name: "index_schedule_fields_on_lesson_time_id", using: :btree
+  add_index "schedule_fields", ["lesson_type_id"], name: "index_schedule_fields_on_lesson_type_id", using: :btree
   add_index "schedule_fields", ["lesson_week_type_id"], name: "index_schedule_fields_on_lesson_week_type_id", using: :btree
   add_index "schedule_fields", ["subject_id"], name: "index_schedule_fields_on_subject_id", using: :btree
 
@@ -115,6 +123,22 @@ ActiveRecord::Schema.define(version: 20160512161534) do
   add_index "stewards", ["group_id"], name: "index_stewards_on_group_id", using: :btree
   add_index "stewards", ["group_id"], name: "stewards_group_id_uindex", unique: true, using: :btree
   add_index "stewards", ["student_id"], name: "stewards_student_id_uindex", unique: true, using: :btree
+
+  create_table "student_progresses", force: :cascade do |t|
+    t.date     "date"
+    t.integer  "schedule_field_id"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.integer  "group_id"
+    t.integer  "student_id"
+    t.integer  "attendance"
+    t.integer  "mark"
+    t.integer  "intime"
+  end
+
+  add_index "student_progresses", ["group_id"], name: "index_student_progresses_on_group_id", using: :btree
+  add_index "student_progresses", ["schedule_field_id"], name: "index_student_progresses_on_schedule_field_id", using: :btree
+  add_index "student_progresses", ["student_id"], name: "index_student_progresses_on_student_id", using: :btree
 
   create_table "students", force: :cascade do |t|
     t.string   "first_name"
@@ -181,13 +205,18 @@ ActiveRecord::Schema.define(version: 20160512161534) do
   add_foreign_key "approves", "stewards"
   add_foreign_key "approves", "users"
   add_foreign_key "schedule_field_groups", "groups"
+  add_foreign_key "schedule_field_groups", "groups", name: "schedule_field_groups_groups_id_fk"
   add_foreign_key "schedule_field_groups", "schedule_fields"
   add_foreign_key "schedule_fields", "lesson_days"
   add_foreign_key "schedule_fields", "lesson_times"
+  add_foreign_key "schedule_fields", "lesson_types"
   add_foreign_key "schedule_fields", "lesson_week_types"
   add_foreign_key "schedule_fields", "subjects"
   add_foreign_key "stewards", "groups"
   add_foreign_key "stewards", "students"
+  add_foreign_key "student_progresses", "groups"
+  add_foreign_key "student_progresses", "schedule_fields"
+  add_foreign_key "student_progresses", "students"
   add_foreign_key "students", "groups"
   add_foreign_key "students", "users"
   add_foreign_key "subjects", "teachers"

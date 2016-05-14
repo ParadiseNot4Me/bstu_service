@@ -1,16 +1,48 @@
 class Api::V1::ScheduleController < Api::V1::Base::BaseAuthorizableController
 
   def schedule
-    group = @user.student.group
-    render json: group.schedule_fields
+    if( @user.student != nil)
+      group = @user.student.group
+      render json: group.schedule_fields
+    else
+
+      subjects = @user.teacher.subjects
+
+      schedule_fields = nil
+      subjects.each do |subject|
+        if( schedule_fields == nil)
+          schedule_fields = subject.schedule_fields
+        else
+          schedule_fields << subject.schedule_fields
+        end
+      end
+
+      render json: schedule_fields
+    end
   end
 
   def schedule_of_day
-    group = @user.student.group
-    time = params[:date].to_datetime
+    if( @user.student != nil)
+      group = @user.student.group
+      time = params[:date].to_datetime
+      fields = group.schedule_fields.select { |x| x.lesson_day.n == time.wday}
+      render json: fields
+    else
 
-    fields = group.schedule_fields.select { |x| x.lesson_day.n == time.wday}
+      subjects = @user.teacher.subjects
 
-    render json: fields 
+      schedule_fields = nil
+      subjects.each do |subject|
+        if( schedule_fields == nil)
+          schedule_fields = subject.schedule_fields
+        else
+          schedule_fields << subject.schedule_fields
+        end
+      end
+
+      time = params[:date].to_datetime
+      fields = schedule_fields.select { |x| x.lesson_day.n == time.wday}
+      render json: fields
+    end
   end
 end

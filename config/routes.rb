@@ -27,6 +27,10 @@ BstuService::Application.routes.draw do
       get '/schedule' => 'schedule#schedule'
       get '/schedule_of_day' => 'schedule#schedule_of_day'
 
+      #Апи успеваемости
+      get '/progress' => 'progress#show'
+      put '/progress/update' => 'progress#update'
+
     end
   end
 

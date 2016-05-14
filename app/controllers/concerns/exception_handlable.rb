@@ -15,9 +15,15 @@ module ExceptionHandlable extend ActiveSupport::Concern
 
   # 404 Not Found
   def rescue_not_found(errors = {})
-    errors = { message: 'Record Not Found' }
-    render json: { errors: errors }, status: :not_found
+
+    render json: { error: 'Record Not Found' }, status: :not_found
   end
+
+   def rescue_not_found_custom(message)
+
+    render json: { error: message }, status: :not_found
+  end
+
 
   # 422 Unprocessable Entity
   def rescue_unprocessable_entity(errors = {})
