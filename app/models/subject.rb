@@ -1,4 +1,5 @@
 class Subject < ActiveRecord::Base
   belongs_to :teacher
-  has_many :schedule_fields
+  belongs_to :practic_teacher, class_name: "Teacher"
+  has_many :schedule_fields, dependent: :destroy
 end

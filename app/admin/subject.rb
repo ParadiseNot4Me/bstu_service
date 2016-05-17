@@ -14,7 +14,7 @@ ActiveAdmin.register Subject do
   # end
 
   permit_params do
-    permitted = [:permitted, :attributes, :name, :teacher_id]
+    permitted = [:permitted, :attributes, :name, :teacher_id, :practic_teacher_id]
     permitted << :other if params[:action] == 'create'
     permitted
   end

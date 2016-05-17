@@ -26,10 +26,13 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'active_model_serializers', '>= 0.10.0.rc3'
 #gem "active_model_serializers", github: "rails-api/active_model_serializers"
 
+#administrative framework
 gem 'activeadmin', github: 'activeadmin'
-
+#for production assets
 gem 'rails_12factor', group: :production
 
+#usage for long-running operations
+gem 'spawnling', :git => 'git://github.com/tra/spawnling'
 
 # Plus integrations with:
 gem 'cancancan'

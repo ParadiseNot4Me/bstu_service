@@ -1,5 +1,5 @@
 class ScheduleFieldSerializer < ActiveModel::Serializer
-  attributes  :id, :teacher, :subject, :lesson_week_type, :lesson_type
+  attributes  :id, :teacher, :subject, :lesson_week_type, :lesson_type, :cabinet
   belongs_to :lesson_day
   # belongs_to :lesson_week_type
   belongs_to :lesson_time
@@ -9,7 +9,11 @@ class ScheduleFieldSerializer < ActiveModel::Serializer
   # belongs_to :subject
 
   def teacher
-    object.subject.teacher.name
+    if object.lesson_type.name == "Практика"
+      object.subject.practic_teacher.name
+    else
+      object.subject.teacher.name
+    end
   end
 
   def subject
@@ -22,6 +26,14 @@ class ScheduleFieldSerializer < ActiveModel::Serializer
 
   def lesson_type
     object.lesson_type.name
+  end
+
+  def cabinet
+    if object.cabinet != nil
+      object.cabinet.name
+    else
+      nil
+    end
   end
 
 
