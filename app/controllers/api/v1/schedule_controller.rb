@@ -8,12 +8,26 @@ class Api::V1::ScheduleController < Api::V1::Base::BaseAuthorizableController
 
       subjects = @user.teacher.subjects
 
+      lection_type = LessonType.find_by(name: "Лекция")
+
       schedule_fields = nil
       subjects.each do |subject|
         if( schedule_fields == nil)
-          schedule_fields = subject.schedule_fields
+          schedule_fields = subject.schedule_fields.where(lesson_type_id: lection_type.id)
         else
-          schedule_fields << subject.schedule_fields
+          schedule_fields << subject.schedule_fields.where(lesson_type_id: lection_type.id)
+        end
+      end
+
+      lection_type = LessonType.find_by(name: "Практика")
+
+      subjects = @user.teacher.practic_subjects
+
+      subjects.each do |subject|
+        if( schedule_fields == nil)
+          schedule_fields = subject.schedule_fields.where(lesson_type_id: lection_type.id)
+        else
+          schedule_fields << subject.schedule_fields.where(lesson_type_id: lection_type.id)
         end
       end
 
@@ -31,12 +45,28 @@ class Api::V1::ScheduleController < Api::V1::Base::BaseAuthorizableController
 
       subjects = @user.teacher.subjects
 
+
+      lection_type = LessonType.find(name: "Лекция")
+
+
       schedule_fields = nil
       subjects.each do |subject|
         if( schedule_fields == nil)
-          schedule_fields = subject.schedule_fields
+          schedule_fields = subject.schedule_fields.where(lesson_type_id: lection_type.id)
         else
-          schedule_fields << subject.schedule_fields
+          schedule_fields << subject.schedule_fields.where(lesson_type_id: lection_type.id)
+        end
+      end
+
+      lection_type = LessonType.find_by(name: "Практика")
+
+      subjects = @user.teacher.practic_subjects
+
+      subjects.each do |subject|
+        if( schedule_fields == nil)
+          schedule_fields = subject.schedule_fields.where(lesson_type_id: lection_type.id)
+        else
+          schedule_fields << subject.schedule_fields.where(lesson_type_id: lection_type.id)
         end
       end
 
