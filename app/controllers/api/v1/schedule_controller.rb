@@ -46,7 +46,7 @@ class Api::V1::ScheduleController < Api::V1::Base::BaseAuthorizableController
       subjects = @user.teacher.subjects
 
 
-      lection_type = LessonType.find(name: "Лекция")
+      lection_type = LessonType.find_by(name: "Лекция")
 
 
       schedule_fields = nil
