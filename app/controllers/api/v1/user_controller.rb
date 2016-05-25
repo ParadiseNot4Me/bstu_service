@@ -37,19 +37,6 @@ class Api::V1::UserController < Api::V1::Base::BaseController
   end
 
   def show
-
-    Spawnling.new do
-      if( $running == true)
-         logger.info("already running")
-        return
-      end
-      $running = true
-      logger.info("I feel sleepy...")
-      sleep 11
-      logger.info("Time to wake up!")
-      $running = false
-    end
-
     if !params['token']
       rescue_bad_request("token")
     else

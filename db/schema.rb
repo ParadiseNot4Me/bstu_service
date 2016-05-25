@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160516225255) do
+ActiveRecord::Schema.define(version: 20160525094511) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,6 +47,17 @@ ActiveRecord::Schema.define(version: 20160516225255) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "finally_marks", force: :cascade do |t|
+    t.integer  "subject_id"
+    t.integer  "student_id"
+    t.integer  "mark"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "finally_marks", ["student_id"], name: "index_finally_marks_on_student_id", using: :btree
+  add_index "finally_marks", ["subject_id"], name: "index_finally_marks_on_subject_id", using: :btree
+
   create_table "groups", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at"
@@ -59,6 +70,40 @@ ActiveRecord::Schema.define(version: 20160516225255) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "lab_progress_student_progresses", force: :cascade do |t|
+    t.integer  "lab_progress_id"
+    t.integer  "student_progress_id"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+  end
+
+  add_index "lab_progress_student_progresses", ["lab_progress_id"], name: "index_lab_progress_student_progresses_on_lab_progress_id", using: :btree
+  add_index "lab_progress_student_progresses", ["student_progress_id"], name: "index_lab_progress_student_progresses_on_student_progress_id", using: :btree
+
+  create_table "lab_progresses", force: :cascade do |t|
+    t.integer  "lab_work_id"
+    t.integer  "student_id"
+    t.integer  "subject_id"
+    t.integer  "mark"
+    t.integer  "intime"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "lab_progresses", ["lab_work_id"], name: "index_lab_progresses_on_lab_work_id", using: :btree
+  add_index "lab_progresses", ["student_id"], name: "index_lab_progresses_on_student_id", using: :btree
+  add_index "lab_progresses", ["subject_id"], name: "index_lab_progresses_on_subject_id", using: :btree
+
+  create_table "lab_works", force: :cascade do |t|
+    t.integer  "subject_id"
+    t.integer  "n"
+    t.date     "time"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "lab_works", ["subject_id"], name: "index_lab_works_on_subject_id", using: :btree
 
   create_table "lesson_days", force: :cascade do |t|
     t.integer  "n"
@@ -214,6 +259,14 @@ ActiveRecord::Schema.define(version: 20160516225255) do
 
   add_foreign_key "approves", "stewards"
   add_foreign_key "approves", "users"
+  add_foreign_key "finally_marks", "students"
+  add_foreign_key "finally_marks", "subjects"
+  add_foreign_key "lab_progress_student_progresses", "lab_progresses"
+  add_foreign_key "lab_progress_student_progresses", "student_progresses"
+  add_foreign_key "lab_progresses", "lab_works"
+  add_foreign_key "lab_progresses", "students"
+  add_foreign_key "lab_progresses", "subjects"
+  add_foreign_key "lab_works", "subjects"
   add_foreign_key "schedule_field_groups", "groups"
   add_foreign_key "schedule_field_groups", "groups", name: "schedule_field_groups_groups_id_fk"
   add_foreign_key "schedule_field_groups", "schedule_fields"

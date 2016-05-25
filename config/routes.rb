@@ -32,6 +32,11 @@ BstuService::Application.routes.draw do
       get '/progress' => 'progress#show'
       put '/progress/update' => 'progress#update'
 
+      get '/finally' => 'finally#show'
+      put '/finally' => 'finally#update'
+
+      get '/teacher/subjects' => 'teacher#subjects'
+
     end
   end
 

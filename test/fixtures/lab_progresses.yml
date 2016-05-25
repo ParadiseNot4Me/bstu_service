@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  references: 
+  referebces: 
+  referenses: 
+  mark: 1
+  intime: 1
+
+two:
+  references: 
+  referebces: 
+  referenses: 
+  mark: 1
+  intime: 1

@@ -1,4 +1,6 @@
 class StudentProgressSerializer < ActiveModel::Serializer
-  attributes :id, :mark, :attendance, :intime
+  attributes :id, :attendance 
   belongs_to :student
+  has_many :lab_progresses
+   
 end
